@@ -1,0 +1,112 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cfe2ddf52704c45989c4a6476af7245, type: 3}
+  m_Name: BalanceConfig
+  m_EditorClassIdentifier: 
+  StartSoft: 100
+  MaxLevels: 2
+  CollectDelay: 0.1
+  YRotation: 35
+  AnimalSpeed: 2
+  ChangeCameraPointConfig:
+    Ease: 1
+    CameraMoveTime: 2
+    CameraFOV: 0
+  CameraMoveConfig:
+    Ease: 1
+    CameraMoveTime: 1
+    CameraFOV: 40
+  TutorialCameraMoveConfig:
+    Ease: 1
+    CameraMoveTime: 1
+    CameraFOV: 40
+  Levels:
+  - Id: 1
+  - Id: 2
+  Units:
+  - UnitType: 0
+    ParamConfigs:
+    - ParamType: 8
+      BaseValue: 1
+    - ParamType: 10
+      BaseValue: 9
+    - ParamType: 7
+      BaseValue: 1
+  Points:
+  - Type: 1
+    Prices:
+    - Level: 0
+      Prices:
+      - ParamType: 1
+        BaseValue: 10
+    Levels:
+    - Level: 1
+      Params:
+      - ParamType: 9
+        BaseValue: 2
+  - Type: 2
+    Prices:
+    - Level: 0
+      Prices:
+      - ParamType: 1
+        BaseValue: 10
+    Levels:
+    - Level: 1
+      Params:
+      - ParamType: 9
+        BaseValue: 1
+      - ParamType: 10
+        BaseValue: 6
+  - Type: 3
+    Prices: []
+    Levels:
+    - Level: 1
+      Params:
+      - ParamType: 8
+        BaseValue: 0.3
+  - Type: 4
+    Prices:
+    - Level: 0
+      Prices:
+      - ParamType: 1
+        BaseValue: 0
+    Levels:
+    - Level: 1
+      Params:
+      - ParamType: 10
+        BaseValue: 12
+  - Type: 5
+    Prices:
+    - Level: 1
+      Prices:
+      - ParamType: 1
+        BaseValue: 1
+    Levels: []
+  - Type: 6
+    Prices:
+    - Level: 0
+      Prices:
+      - ParamType: 1
+        BaseValue: 150
+    Levels: []
+  - Type: 7
+    Prices:
+    - Level: 0
+      Prices:
+      - ParamType: 1
+        BaseValue: 1250
+    Levels: []
+  Skills:
+  - Type: 10
+    PriceStep: 50
+    SkillStep: 1
+  Tutorial: []
