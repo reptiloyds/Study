@@ -63,11 +63,6 @@ namespace _Game.Scripts.View.Points
 
         private void OnInputTriggerEnter(Collider other)
         {
-            if (other.gameObject.layer == GameLayers.PLAYER_LAYER)
-            {
-                _items.LateMoveItemsFromPlayer(_inputStorage, _inputStorage.ParamType, 0, false);
-                InvokeSystem.StartInvoke(PlayProduction, 1f);
-            }
         }
 
         private void PlayProduction()
@@ -90,10 +85,6 @@ namespace _Game.Scripts.View.Points
 
         private void OnOutputTriggerEnter(Collider other)
         {
-            if (other.gameObject.layer == GameLayers.PLAYER_LAYER)
-            {
-                _items.LateMoveItemsToPlayerFromPoint(_outputStorage, _outputStorage.ParamType);
-            }
         }
 
         public void ExecuteEvent(AnimationEventType eventType)

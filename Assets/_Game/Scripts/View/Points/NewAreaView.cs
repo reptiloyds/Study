@@ -55,10 +55,6 @@ namespace _Game.Scripts.View.Points
         {
             if (other.gameObject.layer == GameLayers.PLAYER_LAYER)
             {
-                if (!_isBought)
-                {
-                    _collectableItemsFactory.CancelLastCollection();
-                }
             }
         }
         

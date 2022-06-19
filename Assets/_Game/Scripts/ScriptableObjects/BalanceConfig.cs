@@ -123,9 +123,6 @@ namespace _Game.Scripts.ScriptableObjects
     {
         None, 
         StartTutorial,
-        WaitBoat,
-        WaitBoat2,
-        RemovePeople,
     }
     
     [Serializable]

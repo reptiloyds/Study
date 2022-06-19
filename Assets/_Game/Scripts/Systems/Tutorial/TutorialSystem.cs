@@ -4,18 +4,12 @@ using System.Linq;
 using _Game.Scripts.Balance;
 using _Game.Scripts.Core;
 using _Game.Scripts.Enums;
-using _Game.Scripts.Factories;
 using _Game.Scripts.ScriptableObjects;
 using _Game.Scripts.Systems.Base;
-using _Game.Scripts.Systems.Save;
-using _Game.Scripts.Tools;
 using _Game.Scripts.Ui;
 using _Game.Scripts.Ui.Base;
 using _Game.Scripts.View;
 using _Game.Scripts.View.Points;
-using _Game.Scripts.View.Points.Buildings;
-using _Game.Scripts.View.Units;
-using DG.Tweening;
 using UnityEngine;
 using Zenject;
 
@@ -177,79 +171,6 @@ namespace _Game.Scripts.Systems.Tutorial
             switch (config.StepAction)
             {
                 case TutorialStepAction.None:
-                    
-                    break;
-                case TutorialStepAction.WaitBoat:
-                    _steps.Add(() =>
-                    {
-                        return (TutorialNextStepCondition.Action, GameEvents.BoatStopped);
-                    });
-                    break;
-
-                case TutorialStepAction.StartTutorial:
-                    _steps.Add(() =>
-                    {
-                        var baseString = config.StepActionParam1;
-                        var targetList = new List<Vector3>();
-                        var counter = 1;
-                        
-                        var deactivates = _sceneData.GetComponentsInChildren<CustomTutorialTarget>(true)
-                            .Where(t => t.Target == TutorialTarget.BlockTile1).ToList();
-                        foreach (var deactivate in deactivates)
-                        {
-                            deactivate.GetComponent<CollisionListener>().BlockTile();
-                        }
-                        
-                        while (true)
-                        {
-                            Enum.TryParse<TutorialTarget>($"{baseString}{counter}", out var target);
-                            var targetObj = _sceneData.GetComponentsInChildren<CustomTutorialTarget>(true).FirstOrDefault(t => t.Target == target);
-                            if (targetObj == null)
-                            {
-                                break;
-                            }
-                            targetList.Add(_gameCamera.UnityCam.WorldToScreenPoint(targetObj.transform.position));
-                            counter++;
-                        }
-                        _tutorial.Open(config.StepActionParam2);
-                        
-                        _sceneData.Arrow.MoveBySequence(targetList);
-
-                        return (TutorialNextStepCondition.Action, GameEvents.TaskCompleted);
-                    });
-                    break;
-                case TutorialStepAction.WaitBoat2:
-                    _steps.Add(() =>
-                    {
-                        _tutorial.Close();
-                        _sceneData.Arrow.StopSequence();
-
-                        return (TutorialNextStepCondition.Action, GameEvents.BoatStopped);
-                    });
-                    break;
-                case TutorialStepAction.RemovePeople:
-                    _steps.Add(() =>
-                    {
-                        var baseString = config.StepActionParam1;
-                        var targetList = new List<Vector3>();
-                        var counter = 1;
-                        while (true)
-                        {
-                            Enum.TryParse<TutorialTarget>($"{baseString}{counter}", out var target);
-                            var targetObj = _sceneData.GetComponentsInChildren<CustomTutorialTarget>(true).FirstOrDefault(t => t.Target == target);
-                            if (targetObj == null)
-                            {
-                                break;
-                            }
-                            targetList.Add(_gameCamera.UnityCam.WorldToScreenPoint(targetObj.transform.position));
-                            counter++;
-                        }
-                        _tutorial.Open(config.StepActionParam2);
-                        
-                        _sceneData.Arrow.MoveBySequence(targetList);
-
-                        return (TutorialNextStepCondition.Action, GameEvents.TaskCompleted);
-                    });
                     break;
             }
         }

@@ -2,11 +2,9 @@ using System;
 using System.Collections.Generic;
 using _Game.Scripts.Balance;
 using _Game.Scripts.Enums;
-using _Game.Scripts.Systems;
 using _Game.Scripts.Systems.Base;
 using _Game.Scripts.Systems.Save;
 using _Game.Scripts.Systems.Save.SaveStructures;
-using _Game.Scripts.View.Units;
 using Cinemachine;
 using DG.Tweening;
 using UnityEngine;
@@ -18,8 +16,6 @@ namespace _Game.Scripts
     {
         private GameBalanceConfigs _balance;
         private LevelSystem _levels;
-        private PlayerInputSystem _playerInputSystem;
-        private PlayerView _playerView;
 
         [SerializeField] private CinemachineVirtualCamera _virtualCamera;
         [SerializeField] private Transform _parent;
@@ -110,9 +106,6 @@ namespace _Game.Scripts
 
         public void TutorialMoveTo(Transform target, bool rotate = true, bool savePosition = true)
         {
-            // _playerInputSystem.InputOff();
-            // Follow(null);
-
             if (savePosition)
             {
                 _lastPosition = _virtualCamera.transform.position;
@@ -131,7 +124,6 @@ namespace _Game.Scripts
             {
                 sequence.Join(_virtualCamera.transform.DORotate(target.rotation.eulerAngles,
                     _balance.DefaultBalance.TutorialCameraMoveConfig.CameraMoveTime).SetEase(Ease.Linear));
-                //_balance.DefaultBalance.CameraMoveConfig.Ease
             }
             sequence.OnComplete(() =>
             {
@@ -146,69 +138,6 @@ namespace _Game.Scripts
             sequence.Join(_virtualCamera.transform.DORotate(target.rotation.eulerAngles, 0.5f).SetEase(Ease.Linear));
         }
 
-        // public void MoveTo(List<Transform> cameraSequence)
-        // {
-        //     _playerInputSystem.InputOff();
-        //     Follow(null);
-        //     
-        //     _moveSequence.Clear();
-        //     
-        //     _lastPosition = _virtualCamera.transform.position;
-        //     _lastRotation = _virtualCamera.transform.rotation.eulerAngles;
-        //     
-        //     _lastFOV = _virtualCamera.m_Lens.FieldOfView;
-        //     
-        //     _moveSequence.Add(new CameraMoveElement{Position = _lastPosition, Rotation = _lastPosition});
-        //
-        //     foreach (var item in cameraSequence)
-        //     {
-        //         _moveSequence.Add(new CameraMoveElement{Position = item.transform.position, Rotation = item.transform.rotation.eulerAngles});
-        //     }
-        //
-        //     var moveTime = _balance.DefaultBalance.CameraMoveConfig.CameraMoveTime / (_moveSequence.Count-1);
-        //
-        //     var sequence = DOTween.Sequence();
-        //     
-        //     for (var i = 0; i < _moveSequence.Count - 1; i++)
-        //     {
-        //         sequence.Append(_virtualCamera.transform.DOMove(_moveSequence[i + 1].Position,
-        //             moveTime).SetEase(_balance.DefaultBalance.CameraMoveConfig.Ease));
-        //         sequence.Join(_virtualCamera.transform.DORotate(_moveSequence[i + 1].Rotation,
-        //             moveTime).SetEase(_balance.DefaultBalance.CameraMoveConfig.Ease));
-        //     }
-        //     sequence.OnComplete(() => CameraMoved?.Invoke());
-        // }
-        
-        // public void MoveTo(Transform cameraPoint)
-        // {
-        //     _playerInputSystem.InputOff();
-        //     Follow(cameraPoint);
-        //     
-        //     _moveSequence.Clear();
-        //     
-        //     _lastPosition = _virtualCamera.transform.position;
-        //     _lastRotation = _virtualCamera.transform.rotation.eulerAngles;
-        //     
-        //     _lastFOV = _virtualCamera.m_Lens.FieldOfView;
-        //
-        //     var moveTime = _balance.DefaultBalance.CameraMoveConfig.CameraMoveTime / 2;
-        //
-        //     var sequence = DOTween.Sequence();
-        //     
-        //     sequence.Append(_virtualCamera.transform.DORotate(cameraPoint.rotation.eulerAngles,
-        //         moveTime).SetEase(_balance.DefaultBalance.CameraMoveConfig.Ease).OnComplete(() => Follow(null)));
-        //
-        //     sequence.Append(_virtualCamera.transform.DOMove(cameraPoint.position,
-        //         moveTime).SetEase(_balance.DefaultBalance.CameraMoveConfig.Ease));
-        //     
-        //     sequence.Join(DOTween.To(x => _virtualCamera.m_Lens.FieldOfView = x, _lastFOV,
-        //             _balance.DefaultBalance.CameraMoveConfig.CameraFOV,
-        //             moveTime)
-        //         .SetEase(_balance.DefaultBalance.CameraMoveConfig.Ease));
-        //
-        //     sequence.OnComplete(() => CameraMoved?.Invoke());
-        // }
-
         public void TutorialReturnCamera()
         {
             var sequence = DOTween.Sequence();
@@ -221,8 +150,6 @@ namespace _Game.Scripts
                 _balance.DefaultBalance.TutorialCameraMoveConfig.CameraMoveTime).SetEase(_balance.DefaultBalance.TutorialCameraMoveConfig.Ease));
             sequence.OnComplete(() =>
             {
-                // Follow(_playerView.Transform, false);
-                // _playerInputSystem.InputOn(); 
                 CameraMoved?.Invoke();
                 _appEventProvider.TriggerEvent(AppEventType.Tutorial, GameEvents.CameraMoved);
             });
@@ -230,10 +157,6 @@ namespace _Game.Scripts
         
         public void MoveTo(Transform cameraPoint)
         {
-            // _playerInputSystem.InputOff();
-            // Follow(cameraPoint);
-            // Follow(null);
-            
             _moveSequence.Clear();
             
             _lastPosition = _virtualCamera.transform.position;
@@ -287,8 +210,6 @@ namespace _Game.Scripts
                 moveTime*0.3f).SetEase(_balance.DefaultBalance.CameraMoveConfig.Ease));
             sequence.OnComplete(() =>
             {
-                // Follow(_playerView.Transform, false);
-                // _playerInputSystem.InputOn(); 
                 CameraMoved?.Invoke();
             });
         }

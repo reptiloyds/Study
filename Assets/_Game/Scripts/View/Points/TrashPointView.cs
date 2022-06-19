@@ -36,7 +36,6 @@ namespace _Game.Scripts.View.Points
             if (other.gameObject.layer == GameLayers.PLAYER_LAYER)
             {
                 _animation.Play("open");
-                _items.LateMoveItemsFromPlayer(this, GameParamType.None);
             }
         }
         

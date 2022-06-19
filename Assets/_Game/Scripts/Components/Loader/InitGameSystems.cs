@@ -1,11 +1,8 @@
 ﻿using _Game.Scripts.Components.Base;
 using _Game.Scripts.Factories;
-using _Game.Scripts.Systems;
 using _Game.Scripts.Systems.Base;
 using _Game.Scripts.Systems.Save;
 using _Game.Scripts.Systems.Tutorial;
-using _Game.Scripts.View;
-using _Game.Scripts.View.Units;
 using Zenject;
 
 namespace _Game.Scripts.Components.Loader

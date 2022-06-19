@@ -97,31 +97,14 @@ namespace _Game.Scripts.View.Points.Buildings
         
         private void OnBuyTriggerExit(Collider other)
         {
-            if (other.gameObject.layer == GameLayers.PLAYER_LAYER)
-            {
-                if (!_isBought)
-                {
-                    _collectableItemsFactory.CancelLastCollection();
-                }
-            }
         }
 
         private void OnCollectTriggerEnter(Collider other)
         {
-            if (other.gameObject.layer == GameLayers.PLAYER_LAYER)
-            {
-                _playerEnter = true;
-                _collectableItemsFactory.LateMoveItemsToPlayerFromPoint(_spawnStorage, _spawnItemType);
-            }
         }
         
         private void OnCollectTriggerExit(Collider other)
         {
-            if (other.gameObject.layer == GameLayers.PLAYER_LAYER)
-            {
-                _playerEnter = false;
-                _collectableItemsFactory.CancelLastCollection();
-            }
         }
 
         private void SpendCurrency()
@@ -155,11 +138,6 @@ namespace _Game.Scripts.View.Points.Buildings
                 item.SetFuturePosition(pos);
                 item.transform.localRotation = Quaternion.identity;
                 _capacity.Change(1);
-            }
-
-            if (_playerEnter)
-            {
-                _collectableItemsFactory.LateMoveItemsToPlayerFromPoint(_spawnStorage, _spawnItemType);
             }
         }
 

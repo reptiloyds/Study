@@ -4,13 +4,17 @@ using _Game.Scripts.ScriptableObjects;
 using _Game.Scripts.Systems;
 using _Game.Scripts.Systems.Ads;
 using _Game.Scripts.Systems.Base;
+using _Game.Scripts.Systems.InputSystems;
 using _Game.Scripts.Systems.Save;
+using _Game.Scripts.Systems.Tools;
 using _Game.Scripts.Systems.Tutorial;
 using _Game.Scripts.Tools;
 using _Game.Scripts.Ui;
 using _Game.Scripts.UI.WorldSpace;
 using _Game.Scripts.Ui.Yacht;
 using _Game.Scripts.View;
+using _Game.Scripts.View.Balls;
+using _Game.Scripts.View.DrawLine;
 using _Game.Scripts.View.Fx;
 using DG.Tweening;
 using UnityEngine;
@@ -52,7 +56,6 @@ namespace _Game.Scripts.Core
             Container.Bind<SaveSystem>().AsSingle().NonLazy();
             Container.Bind<EventBehaviourSystem>().AsSingle().NonLazy();
             Container.Bind<AdSystem>().AsSingle().NonLazy();
-            //Container.Bind<PushNotificationSystem>().AsSingle().NonLazy();
             Container.Bind<TutorialSystem>().AsSingle().NonLazy();
             Container.Bind<SessionSystem>().AsSingle().NonLazy();
             
@@ -67,10 +70,9 @@ namespace _Game.Scripts.Core
             
             //Игровая логика
             Container.Bind<EndLevelSystem>().AsSingle().NonLazy();
-            //Container.BindInterfacesAndSelfTo<PlayerInputSystem>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<InputSystem>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<InputBuySystem>().AsSingle().NonLazy();
-            AddSinglePrefab<MaxText>();
+            Container.BindInterfacesAndSelfTo<DrawLineInputSystem>().AsSingle().NonLazy();
         }
         
         private void BindFactories()
@@ -81,8 +83,8 @@ namespace _Game.Scripts.Core
             Container.BindInterfacesAndSelfTo<PointsFactory>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<FxFactory>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<AnimalFactory>().AsSingle().NonLazy();
-            //
-            // Container.BindInterfacesAndSelfTo<CollectableItemsFactory>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<BallFactory>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<LineFactory>().AsSingle().NonLazy();
         }
         
         private void BindPools()
@@ -92,6 +94,16 @@ namespace _Game.Scripts.Core
             Container.BindMemoryPool<GameProgress, GameProgress.Pool>().WithInitialSize(100);
             
             //Init game objects
+            Container.BindMemoryPool<Line, Line.Pool>()
+                .WithInitialSize(10)
+                .FromComponentInNewPrefab(_prefabs.LoadPrefab<Line>())
+                .UnderTransformGroup("Line");
+            
+            Container.BindMemoryPool<BaseBall, BaseBall.Pool>()
+                .WithInitialSize(10)
+                .FromComponentInNewPrefab(_prefabs.LoadPrefab<BaseBall>())
+                .UnderTransformGroup("BaseBall");
+
             Container.BindMemoryPool<UniversalFx, UniversalFx.Pool>()
                 .WithInitialSize(10)
                 .FromComponentInNewPrefab(_prefabs.LoadPrefab<UniversalFx>())

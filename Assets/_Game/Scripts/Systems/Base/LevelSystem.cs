@@ -90,8 +90,8 @@ namespace _Game.Scripts.Systems.Base
             
             CurrentLevel.Activate();
             
-            _gameCamera.ChangeSaveData(CurrentLevel.CameraPoint.position, CurrentLevel.CameraPoint.rotation.eulerAngles, true);
-            _gameCamera.VirtualCamera.transform.SetParent(CurrentLevel.CameraPoint);
+            // _gameCamera.ChangeSaveData(CurrentLevel.CameraPoint.position, CurrentLevel.CameraPoint.rotation.eulerAngles, true);
+            // _gameCamera.VirtualCamera.transform.SetParent(CurrentLevel.CameraPoint);
 
             _appEventProvider.TriggerEvent(GameEvents.LevelStart, CurrentLevel.Id);
 
